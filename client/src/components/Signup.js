@@ -6,23 +6,16 @@ const Signup = () => {
 
     const history = useHistory()
 
-    // const [name, setName] = useState("545")
-    // const [email, setEmail] = useState("")
-    // const [phone, setPhone] = useState("")
-    // const [work, setWork] = useState("")
-    // const [password, setPassword] = useState("")
-    // const [cpassword, setCpassword] = useState("")
+    const [name, setName] = useState("545")
+    const [email, setEmail] = useState("")
+    const [phone, setPhone] = useState("")
+    const [work, setWork] = useState("")
+    const [password, setPassword] = useState("")
+    const [cpassword, setCpassword] = useState("")
 
-    const data = {
-        name: "root",
-        email: "root2@gmail.com",
-        phone: "7894561232",
-        work: "Rooter",
-        password: '123',
-        cpassword: '123'
-    }
 
     const postData = async (e) => {
+        var data = {name, email, phone, work, password, cpassword}
         e.preventDefault()
         const response = await fetch('/register', {
             method: "POST",
@@ -34,7 +27,7 @@ const Signup = () => {
 
         const newData = await response.json()
 
-        if(newData.status === 422 || !data) {
+        if(response.status === 422 || !data) {
             alert("Failed")
         } else {
             alert("Sucess")
@@ -51,8 +44,8 @@ const Signup = () => {
                         className="form-control"
                         id="floatingInput"
                         placeholder="Type Something..."
-                    // value={name}
-                    // onChange={setName}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
 
                     />
                     <label for="floatingInput">Name</label>
@@ -64,50 +57,50 @@ const Signup = () => {
                         className="form-control"
                         id="floatingPassword"
                         placeholder="Type Something..."
-                    // value={email}
-                    // onChange={(text) => {
-                    //     setEmail(text)
-                    // }}
+                    value={email}
+                    onChange={(text) => {
+                        setEmail(text.target.value)
+                    }}
                     />
                     <label for="floatingPassword">Email</label>
                 </div>
 
                 <div class="form-floating">
                     <input type="number" className="form-control" id="floatingPassword" placeholder="Type Something..."
-                    // value={phone}
-                    // onChange={(text) => {
-                    //     setPhone(text)
-                    // }}
+                    value={phone}
+                    onChange={(text) => {
+                        setPhone(text.target.value)
+                    }}
                     />
                     <label for="floatingPassword">Phone</label>
                 </div>
 
                 <div class="form-floating">
                     <input type="text" className="form-control" id="floatingPassword" placeholder="Type Something..."
-                    // value={work}
-                    // onChange={(text) => {
-                    //     setWork(text)
-                    // }}
+                    value={work}
+                    onChange={(text) => {
+                        setWork(text.target.value)
+                    }}
                     />
                     <label for="floatingPassword">Work</label>
                 </div>
 
                 <div class="form-floating">
-                    <input type="password" className="form-control" id="floatingPassword" placeholder="Type Something..."
-                    // value={password}
-                    // onChange={(text) => {
-                    //     setPassword(text)
-                    // }}
+                    <input type="text" className="form-control" id="floatingPassword" placeholder="Type Something..."
+                    value={password}
+                    onChange={(text) => {
+                        setPassword(text.target.value)
+                    }}
                     />
                     <label for="floatingPassword">Password</label>
                 </div>
 
                 <div class="form-floating">
-                    <input type="password" className="form-control" id="floatingPassword" placeholder="Type Something..."
-                    // value={cpassword}
-                    // onChange={(text) => {
-                    //     setCpassword(text)
-                    // }}
+                    <input type="text" className="form-control" id="floatingPassword" placeholder="Type Something..."
+                    value={cpassword}
+                    onChange={(text) => {
+                        setCpassword(text.target.value)
+                    }}
                     />
                     <label for="floatingPassword">Confirm Password</label>
                 </div>

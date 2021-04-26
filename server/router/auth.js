@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const express = require('express');
 const router = express.Router()
+const authenticate = require('../middleware/authenticate')
 
 require("../db/conn")
 const User = require("../model/userSchema")
@@ -106,11 +107,13 @@ router.post('/signin', async (req, res) => {
             return res.status(400).json({ error: "Invalid Credentials" })
         }
 
-
-
     } catch (error) {
         console.log(error)
     }
+})
+
+router.get('/about', authenticate, (req, res) => {
+    res.send(req.rootUser)
 })
 
 module.exports = router;
