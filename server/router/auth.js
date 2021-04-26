@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const express = require('express');
 const router = express.Router()
@@ -75,6 +76,7 @@ router.post('/register', async (req, res) => {
 })
 
 router.post('/signin', async (req, res) => {
+    let token;
 
     try {
         const { email, password } = req.body
@@ -86,6 +88,14 @@ router.post('/signin', async (req, res) => {
 
         if (userLogin) {
             const isMatch = await bcrypt.compare(password, userLogin.password)
+
+            token = await userLogin.generateAuthToken()
+            console.log("This is the token", token)
+
+            res.cookie("jwtoken", token, {
+                expires: new Date(Date.now() + 25892000000),
+                httpOnly: true
+            });
 
             if (!isMatch) {
                 return res.status(400).json({ error: "Invalid Credentials" })
