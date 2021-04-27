@@ -91,7 +91,6 @@ router.post('/signin', async (req, res) => {
             const isMatch = await bcrypt.compare(password, userLogin.password)
 
             token = await userLogin.generateAuthToken()
-            console.log("This is the token", token)
 
             res.cookie("jwtoken", token, {
                 expires: new Date(Date.now() + 25892000000),
@@ -115,5 +114,34 @@ router.post('/signin', async (req, res) => {
 router.get('/about', authenticate, (req, res) => {
     res.send(req.rootUser)
 })
+
+router.get('/getData', authenticate, (req, res) => {
+    res.send(req.rootUser)
+})
+
+
+router.post('/contact', authenticate, async (req, res) => {
+    console.log(req.body)
+    try {
+        const { name, email, subject, message } = req.body
+
+        if (!email || !name || !subject || !message) {
+            return res.json({ message: "Error" })
+        }
+
+        const userContact = await User.findOne({
+            _id: req.userID
+        })
+
+        if (userContact) {
+            const userMessage = await userContact.addMessage(name, email, subject, message)
+            return res.status(201).json({ message: "User Contact Sucessfully" })
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 
 module.exports = router;

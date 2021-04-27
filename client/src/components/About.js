@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import { useHistory } from 'react-router-dom'
 
 const About = () => {
+
+    const [userData, setUserData] = useState(null)
 
     const history = useHistory()
 
@@ -11,14 +13,14 @@ const About = () => {
             const res = await fetch('/about', {
                 method: 'GET',
                 headers: {
-                    Accept: "application/json",
+                    // Accept: "application/json",
                     "Content-Type": "application/json"
                 },
-                credentials: 'include'
+                // credentials: "include"
             })
 
             const data = await res.json();
-            console.log("Thsi is the data inb the about us page", data)
+            setUserData(data)
 
             if (!res.status == 200) {
                 const error = new Error(res.error)
@@ -33,35 +35,43 @@ const About = () => {
     useEffect(() => {
         callAboutPage();
     }, [])
+
+    if (!userData) {
+        return (
+            <>
+                <h1>Loading...</h1>
+            </>
+        )
+    }
     return (
         <>
             <form method="GET">
 
 
                 <label>User Id</label>
-                <p>
-                    557483920396789
-           </p>
+                <h4>
+                    {userData._id}
+                </h4>
 
                 <label>Name</label>
-                <p>
-                    Shivam Goyal
-           </p>
+                <h4>
+                    {userData.name}
+                </h4>
 
                 <label>Email</label>
-                <p>
-                    officialshivamgoyal@gmail.com
-           </p>
+                <h4>
+                    {userData.email}
+                </h4>
 
                 <label>Phone</label>
-                <p>
-                    9876543215
-           </p>
+                <h4>
+                    {userData.phone}
+                </h4>
 
                 <label>Work</label>
-                <p>
-                    Assassination
-           </p>
+                <h4>
+                    {userData.work}
+                </h4>
             </form>
         </>
     )

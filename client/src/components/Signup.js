@@ -25,8 +25,6 @@ const Signup = () => {
             body: JSON.stringify(data)
         })
 
-        const newData = await response.json()
-
         if(response.status === 422 || !data) {
             alert("Failed")
         } else {
@@ -36,8 +34,9 @@ const Signup = () => {
     }
 
     return (
-        <>
-            <form method="POST" className="register-form" id="register-form">
+        <div style = {{padding: 20}}>
+            <form 
+            method="POST" className="register-form" id="register-form">
                 <div class="form-floating mb-3">
                     <input
                         type="text"
@@ -111,7 +110,7 @@ const Signup = () => {
                         type="submit" name="Signup" value="Register" />
                 </div>
             </form>
-        </>
+        </div>
     )
 }
 
