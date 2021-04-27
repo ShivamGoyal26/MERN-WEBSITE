@@ -6,7 +6,7 @@ const Signup = () => {
 
     const history = useHistory()
 
-    const [name, setName] = useState("545")
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
     const [work, setWork] = useState("")
